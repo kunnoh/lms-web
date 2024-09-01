@@ -1,0 +1,52 @@
+.nav{
+    background-color: whitesmoke;
+    gap: 10px;
+}
+.spacer{
+    width: 90%;
+}
+.activebutton{
+    color: brown;
+}
+.h{
+    display: flex;
+    gap: 10px;
+}
+.h a{
+    margin: 5px;
+    cursor: pointer;
+}
+.logo{
+    cursor: pointer;
+}
+.logo img{
+    margin-top: 10px;
+    width: 150px;
+}
+.sidenav-container{
+    height: 100%;
+    /* width: 200px; */
+}
+.sidenav{
+    width: 200px;
+}
+.mat-toolbar{
+    background-color: whitesmoke;
+}
+.mat-sidenav{
+    background-color: whitesmoke;
+}
+.mat-nav-list a.mat-list-item {
+    color: black;
+}
+.mat-sidenav-content {
+    background-color: white;
+    color: black;
+}
+.link{
+    background-color: gray;
+    color: black !important;
+}
+.active-link{
+    background-color: rgb(7, 113, 60);
+}

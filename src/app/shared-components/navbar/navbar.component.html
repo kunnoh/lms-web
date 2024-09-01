@@ -1,0 +1,30 @@
+<mat-toolbar class="nav">
+    <button
+        color="accent"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <a routerLink="/dashboard" class="logo">
+        <img src="../../../assets/images/FINAL+SAPIENT+LOGO-2.jpg" alt="">
+    </a>
+    <div class="spacer"></div>
+    <a mat-raised-button routerLink="/auth" routerLinkActive="activebutton">Sign In</a>
+</mat-toolbar>
+
+<!-- <mat-sidenav-container class="sidenav-container" #sidenavContainer> -->
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" mode="side">
+      <mat-toolbar color="accent">Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard" class="link" routerLinkActive="active-link">Dashboard</a>
+        <a mat-list-item routerLink="/profile" class="link" routerLinkActive="active-link">Profile</a>
+        <a mat-list-item routerLink="/users" class="link" routerLinkActive="active-link">Users</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
