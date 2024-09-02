@@ -1,0 +1,15 @@
+.register-card{
+    background-color: whitesmoke;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    min-width: 360px;
+    min-height: 300px;
+    justify-content: center;
+    align-items: center;
+}
+.input-grp{
+    /* background-color: white; */
+    width: 90%;
+}
