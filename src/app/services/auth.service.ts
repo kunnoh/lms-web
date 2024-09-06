@@ -22,12 +22,12 @@ export class AuthService {
   constructor() { }
   
   public loginApi(logindata: any): Observable<any> {
-    return this.http.post(prod.api + "/auth/login", this.httpOptions, logindata)
+    return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
       .pipe(retry(1), catchError(handleError));
   };
 
   public registerApi(userdata: any): Observable<any> {
-    return this.http.post(prod.production + "/auth/register", this.httpOptions, userdata)
+    return this.http.post(prod.production + "/auth/register", userdata, this.httpOptions)
       .pipe(retry(1), catchError(handleError));
   };
 }

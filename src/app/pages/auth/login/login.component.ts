@@ -30,7 +30,7 @@ import { NgIf } from '@angular/common';
 export class LoginComponent {
   // email = new FormControl("", [ Validators.required, Validators.email ]);
   // password = new FormControl("", [ Validators.required ]);
-  errMsg: string = "";
+  errMsg: string | null = "";
   hide: boolean = true;
   email: string = "";
   password:string = "";
@@ -46,6 +46,7 @@ export class LoginComponent {
     console.log(this.email); 
     console.log(this.password);
     this.loading = true;
+    this.errMsg = null;
     this.authservice.loginApi({email: this.email, password: this.password}).subscribe({
       next: (res) => {
         console.log("RESPoNSE:\n\t",res);
@@ -54,6 +55,7 @@ export class LoginComponent {
       error: (err) => {
         this.loading = false;
         console.log("ERR:\n\t", err);
+        this.errMsg = err;
       }
     })
 
