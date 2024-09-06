@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable, retry, catchError, BehaviorSubject } from 'rxjs';
 import handleError from '../helpers/error.handler';
 import { prod } from '../../env/env';
@@ -15,11 +15,14 @@ export class AuthService {
     })
   };
 
-  // private router: Router = inject(Router);
   private http: HttpClient = inject(HttpClient);
-  public isLoggedIn = new BehaviorSubject<boolean>(false);
+  public isLoggedIn = signal<boolean>(false);
 
-  constructor() { }
+  constructor() {
+    if(this.getToken()){
+      this.isLoggedIn.update(() => true);
+    }
+  }
   
   public loginApi(logindata: any): Observable<any> {
     return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
@@ -30,4 +33,8 @@ export class AuthService {
     return this.http.post(prod.production + "/auth/register", userdata, this.httpOptions)
       .pipe(retry(1), catchError(handleError));
   };
+
+  public getToken(): string | null {
+    return localStorage.getItem("token") || null;
+  }
 }

@@ -8,6 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 // import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
@@ -37,6 +38,7 @@ export class LoginComponent {
   loading: boolean = false;
 
   authservice: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   constructor(){
 
@@ -51,6 +53,9 @@ export class LoginComponent {
       next: (res) => {
         console.log("RESPoNSE:\n\t",res);
         this.loading = false;
+        localStorage.setItem("token", res.data.token);
+        this.router.navigate(["/dashboard"]);
+        this.authservice.isLoggedIn.update(() => true);
       },
       error: (err) => {
         this.loading = false;

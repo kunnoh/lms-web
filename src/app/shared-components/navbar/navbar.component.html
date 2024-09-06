@@ -10,7 +10,11 @@
         <img src="../../../assets/images/LOGO-2.jpg" alt="">
     </a> -->
     <div class="spacer"></div>
-    <a mat-raised-button  routerLink="/auth" routerLinkActive="activebutton">Sign In</a>
+    @if(islogged){
+        <a mat-raised-button (click)="logout()" routerLinkActive="activebutton">Sign Out</a>
+    } @else {
+        <a mat-raised-button  routerLink="/auth" routerLinkActive="activebutton">Sign In</a>
+    }
 </mat-toolbar>
 
 <!-- <mat-sidenav-container class="sidenav-container" #sidenavContainer> -->
