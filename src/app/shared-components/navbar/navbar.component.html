@@ -11,9 +11,9 @@
     </a> -->
     <div class="spacer"></div>
     @if(islogged){
-        <a mat-raised-button (click)="logout()" routerLinkActive="activebutton">Sign Out</a>
+        <a mat-raised-button color="accent" (click)="logout()">Sign Out</a>
     } @else {
-        <a mat-raised-button  routerLink="/auth" routerLinkActive="activebutton">Sign In</a>
+        <a mat-raised-button  routerLink="/auth">Sign In</a>
     }
 </mat-toolbar>
 

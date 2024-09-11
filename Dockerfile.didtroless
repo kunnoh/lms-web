@@ -1,0 +1,53 @@
+# Stage 1: Build Angular App
+FROM node:22-alpine AS angular-build
+
+WORKDIR /app/
+
+# Copy package.json and install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy the rest of the app and build it
+COPY . .
+RUN npm run build --omit=dev
+
+# Stage 2: Build nginx and copy necessary files
+FROM debian:stable-slim AS nginx-build
+
+# Install Nginx and create www-data user/group
+RUN apt-get update && apt-get install -y \
+    nginx \
+    && rm -rf /var/lib/apt/lists/* 
+    # groupadd --system --gid 1001 www-data && \
+    # useradd --system --uid 1001 --gid www-data www-data
+
+# Find nginx dependencies and copy them
+RUN mkdir -p /var/lib/nginx/body && touch /var/log/nginx/error.log && touch /var/log/nginx/access.log && mkdir -p /nginx-libs && \
+    ldd /usr/sbin/nginx | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp '{}' /nginx-libs/
+
+
+# Stage 3: Final Distroless container
+FROM gcr.io/distroless/base-debian12 AS build-release-stage
+
+WORKDIR /app/
+
+# copy user data
+COPY --from=nginx-build /etc/passwd /etc/passwd
+COPY --from=nginx-build /etc/group /etc/group
+COPY --from=nginx-build /var/lib/nginx/body /var/lib/nginx/body
+
+# Copy nginx binary and required libraries
+COPY --from=nginx-build /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=nginx-build /nginx-libs/ /lib/
+COPY --from=nginx-build /etc/nginx /etc/nginx
+COPY --from=nginx-build /var/log/nginx/error.log  /var/log/nginx/error.log
+COPY --from=nginx-build /var/log/nginx/access.log  /var/log/nginx/access.log
+
+# Copy Angular build output to Nginx HTML directory
+COPY --from=angular-build /app/dist/lms-web /usr/share/nginx/html
+
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]

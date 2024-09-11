@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private httpOptions = {
     headers: new HttpHeaders({
@@ -17,6 +18,13 @@ export class AuthService {
 
   private http: HttpClient = inject(HttpClient);
   public isLoggedIn = signal<boolean>(false);
+
+  private state = signal<AuthState>({
+    isLogged: false,
+    token: null,
+    isLoading: false,
+    error: null,
+  });
 
   constructor() {
     if(this.getToken()){
@@ -37,4 +45,11 @@ export class AuthService {
   public getToken(): string | null {
     return localStorage.getItem("token") || null;
   }
+}
+
+export interface AuthState {
+  isLogged: boolean,
+  token: string | null,
+  isLoading: boolean,
+  error: null
 }
