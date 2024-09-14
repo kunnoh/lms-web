@@ -3,8 +3,8 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY . .
-RUN npm ci
-RUN npm run build --omit=dev
+RUN npm ci &&\
+    npm run build --omit=dev
 
 FROM nginx:alpine-slim AS release
 
