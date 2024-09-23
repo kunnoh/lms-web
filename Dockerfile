@@ -9,7 +9,7 @@ RUN npm ci &&\
 FROM nginx:alpine-slim AS release
 
 COPY --from=build /app/dist/lms-web/browser/ /usr/share/nginx/html
-# COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/lms-web.conf /etc/nginx/sites-available/default
 
 EXPOSE 80
