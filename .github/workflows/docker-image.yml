@@ -25,4 +25,4 @@ jobs:
             context: .
             file: ./Dockerfile
             push: true
-            tags: kunohdere/lms-web:latest
+            tags: kunohdere/lms-web:1.0.0
