@@ -2,10 +2,13 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY . .
-RUN npm ci &&\
-    npm run build --omit=dev
+COPY package*.json ./
 
+# Install dependencies and build the application
+RUN npm ci && \
+    npm run build --omit=dev && \
+    # Remove source code after build
+    rm *
 
 FROM nginx:alpine-slim AS release
 
