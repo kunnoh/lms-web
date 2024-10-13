@@ -1,4 +1,5 @@
-*
-!angular.json
-!src
-!package*
+# *
+# !angular.json
+# !src
+# !package*
+# !tsconfig.app.json
