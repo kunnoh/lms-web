@@ -24,7 +24,7 @@ Run docker container.
 docker run -d --name lmsweb -p 80:80 lmsweb:latest
 ```
 
-Stop and remove docker conatiner.
+Stop and remove docker container.
 ```sh
 docker stop lmsweb
 docker rm lmsweb
@@ -35,7 +35,7 @@ docker rm lmsweb
 ### Debug docker container
 Run bash inside the container.
 ```sh
-docker  exec -it <container_id | container_name> 
+docker  exec -it <container_id | container_name> /bin/sh
 ```
 
 Check container logs.
