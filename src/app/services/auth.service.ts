@@ -38,7 +38,7 @@ export class AuthService {
   };
 
   public registerApi(userdata: any): Observable<any> {
-    return this.http.post(prod.production + "/auth/register", userdata, this.httpOptions)
+    return this.http.post(prod.api + "/auth/register", userdata, this.httpOptions)
       .pipe(retry(1), catchError(handleError));
   };
 

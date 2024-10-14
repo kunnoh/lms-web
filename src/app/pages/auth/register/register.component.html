@@ -1,29 +1,52 @@
 <mat-card class="register-card">
     <mat-card-content>
-        <form>
-            <h2>Sign Up</h2>    
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <h2>Sign Up</h2>
+
+            <mat-form-field class="input-grp">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="name" required>
+                <mat-error>provide valid name</mat-error>
+            </mat-form-field>
+            
             <mat-form-field class="input-grp">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="email">
+                <input matInput formControlName="email" placeholder="email">
             </mat-form-field>
+            
             <mat-form-field class="input-grp">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="password">
+                <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
+            
             <mat-form-field class="input-grp">
                 <mat-label>Confirm password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="confirm password">
+                <input matInput formControlName="confirmpassword" [type]="hide ? 'password' : 'text'" placeholder="confirm password">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-            <button mat-raised-button>Sign Up</button>
+            
+            <mat-form-field class="input-grp">
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" placeholder="phone" required>
+                <mat-error>provide valid phone number</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="input-grp">
+                <mat-label>ID number</mat-label>
+                <input matInput formControlName="idnumber" placeholder="Identity Card No." required>
+                <mat-error>provide valid ID number</mat-error>
+            </mat-form-field>
+            <button mat-raised-button type="submit">Sign Up</button>
         </form>
     </mat-card-content>
 </mat-card>
-<div *ngIf="loading" class="loader center">
-    <mat-spinner></mat-spinner>
-</div>
+@if(loading){
+    <div class="spin row center">
+        <mat-spinner ></mat-spinner>
+    </div>
+}

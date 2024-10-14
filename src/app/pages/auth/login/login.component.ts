@@ -61,7 +61,7 @@ export class LoginComponent {
         },
         error: (err) => {
           this.loading = false;
-          console.log("ERR:\n\t", err);
+          // console.log("ERR:\n\t", err);
           this.errMsg = err;
         }
       });
