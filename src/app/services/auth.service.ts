@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, retry, catchError, BehaviorSubject } from 'rxjs';
+import { Observable, retry, catchError, filter } from 'rxjs';
 import handleError from '../helpers/error.handler';
 import { prod } from '../../env/env';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +33,18 @@ export class AuthService {
   
   public loginApi(logindata: any): Observable<any> {
     return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
-      .pipe(retry(1), catchError(handleError));
-  };
+      .pipe(
+        retryWhen(errors =>
+          errors.pipe(
+            // Only retry on network errors (status 0)
+            filter((error: HttpErrorResponse) => error.status === 0),
+            delay(1000), // Retry after 1 second delay
+            take(2) // Retry 2 times before failing
+          )
+        ),
+        catchError(handleError)
+      );
+  }
 
   public registerApi(userdata: any): Observable<any> {
     return this.http.post(prod.api + "/auth/register", userdata, this.httpOptions)
@@ -53,3 +62,15 @@ export interface AuthState {
   isLoading: boolean,
   error: null
 }
+function retryWhen(arg0: (errors: any) => any): import("rxjs").OperatorFunction<Object, any> {
+  throw new Error('Function not implemented.');
+}
+
+function delay(arg0: number): any {
+  throw new Error('Function not implemented.');
+}
+
+function take(arg0: number): any {
+  throw new Error('Function not implemented.');
+}
+

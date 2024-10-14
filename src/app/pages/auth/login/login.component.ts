@@ -47,24 +47,60 @@ export class LoginComponent {
   }
 
 
-  onSubmit(){
-    if(this.loginForm.valid){
-      this.loading = true;
-      this.errMsg = null;
-      this.authservice.loginApi({email: this.loginForm.value['email'], password: this.loginForm.value['password']}).subscribe({
+  // onSubmit(){
+  //   if(this.loginForm.valid){
+  //     this.loading = true;
+  //     this.errMsg = null;
+  //     this.authservice.loginApi({email: this.loginForm.value['email'], password: this.loginForm.value['password']}).subscribe({
+  //       next: (res) => {
+  //         console.log("RESPoNSE:\n\t",res);
+  //         this.loading = false;
+  //         localStorage.setItem("token", res.data.token);
+  //         this.router.navigate(["/dashboard"]);
+  //         this.authservice.isLoggedIn.update(() => true);
+  //       },
+  //       error: (err) => {
+  //         this.loading = false;
+  //         // console.log("ERR:\n\t", err);
+  //         this.errMsg = err;
+  //       }
+  //     });
+  //   }
+  // }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.loading = true; // Start the loader
+      this.errMsg = null; // Reset the error message
+      
+      this.authservice.loginApi({
+        email: this.loginForm.value['email'], 
+        password: this.loginForm.value['password']
+      }).subscribe({
         next: (res) => {
-          console.log("RESPoNSE:\n\t",res);
-          this.loading = false;
+          console.log("RESPONSE:\n\t", res);
+          this.loading = false; // Stop the loader on success
           localStorage.setItem("token", res.data.token);
           this.router.navigate(["/dashboard"]);
           this.authservice.isLoggedIn.update(() => true);
         },
         error: (err) => {
+          this.loading = false; // Stop the loader on error
+          console.error("ERROR:\n\t", err);
+          
+          // Check if the error has a message to show to the user
+          if (err.message) {
+            this.errMsg = err.message; 
+          } else {
+            this.errMsg = "An unexpected error occurred.";
+          }
+        },
+        complete: () => {
+          // Ensure loading is false when the request completes
           this.loading = false;
-          // console.log("ERR:\n\t", err);
-          this.errMsg = err;
         }
       });
     }
   }
+  
 }
