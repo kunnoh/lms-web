@@ -41,8 +41,8 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmpassword: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmpassword: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', Validators.required],
       idnumber: ['', Validators.required],
     });
@@ -52,16 +52,21 @@ export class RegisterComponent {
     if(this.registerForm.valid){
       this.loading = true;
       this.errMsg = null;
-      // console.log(this.registerForm.value)
+
       this.authService.registerApi(this.registerForm.value).subscribe({
         next: (res) => {
           this.loading = false;
           console.log(res);
         },
         error: (err) => {
+          // console.log(err);
           this.loading = false;
           this.errMsg = err;
-        } 
+        },
+        complete: () => {
+          this.loading = false;
+          this.errMsg = null;
+        }
       })
     }
   }

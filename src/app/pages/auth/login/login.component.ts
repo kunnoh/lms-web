@@ -40,7 +40,7 @@ export class LoginComponent {
   constructor(){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -61,8 +61,9 @@ export class LoginComponent {
         },
         error: (err) => {
           this.loading = false;
-          this.errMsg = err.error?.message || "An error occured!"; 
+          this.errMsg = err; 
           console.error("ERROR:\n\t", err);
+          console.error("ERROR MSG:\n\t", err);
         },
         complete: () => {
           this.loading = false;

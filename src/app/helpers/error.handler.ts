@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
 export function handleError(error: HttpErrorResponse) {
-  let errorMessage = '';
+  let errorMessage: string | null = null;
   console.log(error)
   if (error.error instanceof ErrorEvent) {
     // Client-side error
@@ -20,11 +20,8 @@ export function handleError(error: HttpErrorResponse) {
       errorMessage = `Server-side error: Error Code ${error.status}\nMessage: ${error.message}`;
     }
   }
-
-  // Log the error to the console for debugging purposes
-  // console.error('ERR:', errorMessage);
-
   // Return an observable with a user-facing error message
+  errorMessage = "Request failed. Try again later!"
   return throwError(() => new Error(errorMessage));
 }
 

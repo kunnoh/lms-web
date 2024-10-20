@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, retry, catchError, filter } from 'rxjs';
+import { Observable, retry, catchError } from 'rxjs';
 import handleError from '../helpers/error.handler';
 import { prod } from '../../env/env';
 
@@ -31,19 +31,9 @@ export class AuthService {
     }
   }
   
-  public loginApi(logindata: any): Observable<any> {
+  public loginApi(logindata: { email: string, password: string }): Observable<any> {
     return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
-      .pipe(
-        retryWhen(errors =>
-          errors.pipe(
-            // Only retry on network errors (status 0)
-            filter((error: HttpErrorResponse) => error.status === 0),
-            delay(1000), // Retry after 1 second delay
-            take(2) // Retry 2 times before failing
-          )
-        ),
-        catchError(handleError)
-      );
+      .pipe(retry(1), catchError(handleError));
   }
 
   public registerApi(userdata: any): Observable<any> {
