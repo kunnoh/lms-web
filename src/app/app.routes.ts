@@ -6,10 +6,21 @@ import { innerGuard } from './guards/inner.guard';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
-    { path: "dashboard", loadComponent: () => import("./pages/dashboard/dashboard.component").then((c) => c.DashboardComponent), canActivate: [authGuard]},
     { path: "auth", loadComponent: () => import("./pages/auth/auth.component").then((c) => c.AuthComponent), canActivate: [innerGuard]},
-    { path: "admin", loadComponent: () => import("./pages/admin/admin.component").then((c) => c.AdminComponent), canActivate: [authGuard] },
-    { path: "users", loadComponent: () => import("./pages/user/user.component").then((c) => c.UserComponent), canActivate: [authGuard]},
-    { path: "profile", loadComponent: () => import("./pages/profile/profile.component").then((c) => c.ProfileComponent), canActivate: [authGuard]},
+    { path: "dashboard",
+        loadComponent: () => import("./pages/dashboard/dashboard.component").then((c) => c.DashboardComponent),
+        canActivate: [authGuard],
+        children: [
+            { path: "profile", loadChildren: () => import("./pages/profile/profile.component").then((m) => m.ProfileComponent) },
+        ]
+    },
+    { path: "admin",
+        loadComponent: () => import("./pages/admin/admin.component").then((c) => c.AdminComponent),
+        canActivate: [authGuard],
+        children: [
+            { path: "profile", loadChildren: () => import("./pages/profile/profile.component").then((m) => m.ProfileComponent) },
+            { path: "users", loadChildren: () => import("./pages/user/user.component").then((m) => m.UserComponent) },
+        ]
+    },
     { path: "**", component: NotfoundComponent },
 ];
