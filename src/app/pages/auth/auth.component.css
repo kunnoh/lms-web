@@ -1,5 +1,8 @@
 /* Styles for unfocused mat-tab */
 /* ::ng-deep { */
+h3{
+    padding-top: 2rem;
+}
 .mdc-tab__text-label, .mdc-tab__content {
     color: black !important;
 }
