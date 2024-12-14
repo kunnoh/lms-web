@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -34,7 +33,6 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   authService: AuthService = inject(AuthService);
-  router: Router = inject(Router);
   fb: FormBuilder = inject(FormBuilder);
 
   constructor(){

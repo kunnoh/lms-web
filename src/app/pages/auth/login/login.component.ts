@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, Validators, FormsModule, ReactiveFormsModule, NgForm, FormBuilder, FormGroup} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { Validators, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup} from '@angular/forms';
+import { MatInputModule} from '@angular/material/input';
+import { MatButtonModule} from '@angular/material/button';
+import { MatCardModule} from '@angular/material/card';
+import { MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
@@ -63,7 +63,6 @@ export class LoginComponent {
           this.loading = false;
           this.errMsg = err; 
           console.error("ERROR:\n\t", err);
-          console.error("ERROR MSG:\n\t", err);
         },
         complete: () => {
           this.loading = false;

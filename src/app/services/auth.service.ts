@@ -33,12 +33,18 @@ export class AuthService {
   
   public loginApi(logindata: { email: string, password: string }): Observable<any> {
     return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
-      .pipe(retry(1), catchError(handleError));
+      .pipe(
+        retry(1),
+        catchError(handleError)
+      );
   }
 
   public registerApi(userdata: any): Observable<any> {
     return this.http.post(prod.api + "/auth/register", userdata, this.httpOptions)
-      .pipe(retry(1), catchError(handleError));
+      .pipe(
+        retry(1),
+        catchError(handleError)
+      );
   };
 
   public getToken(): string | null {
