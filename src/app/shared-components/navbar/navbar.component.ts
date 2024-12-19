@@ -9,21 +9,20 @@ import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    RouterLink,
-    RouterLinkActive,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    RouterOutlet,
-    NgIf
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+    selector: 'app-navbar',
+    imports: [
+        MatToolbarModule,
+        MatButtonModule,
+        RouterLink,
+        RouterLinkActive,
+        MatIconModule,
+        MatSidenavModule,
+        MatListModule,
+        RouterOutlet,
+        NgIf
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
   @ViewChild("drawer", { static: false })

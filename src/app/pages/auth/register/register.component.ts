@@ -10,21 +10,20 @@ import { NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    NgIf
-  ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-signup',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        NgIf
+    ],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   hide: boolean = true;

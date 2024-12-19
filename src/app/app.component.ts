@@ -3,10 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./shared-components/navbar/navbar.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
-  template: `
+    selector: 'app-root',
+    imports: [RouterOutlet, NavbarComponent],
+    template: `
     <app-navbar>
   `
 })

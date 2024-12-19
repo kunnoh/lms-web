@@ -11,21 +11,20 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signin',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    NgIf
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-signin',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        NgIf
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent {
   errMsg: string | null = null;
