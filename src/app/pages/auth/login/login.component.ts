@@ -6,9 +6,8 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatCardModule} from '@angular/material/card';
 import { MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../../../services/auth.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-// import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../../services/loading.service/loading.service';
 
 @Component({
     selector: 'app-signin',
@@ -20,8 +19,6 @@ import { Router } from '@angular/router';
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        MatProgressSpinnerModule,
-        // NgIf
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'
@@ -35,6 +32,7 @@ export class LoginComponent {
   authservice: AuthService = inject(AuthService);
   router: Router = inject(Router);
   fb: FormBuilder = inject(FormBuilder);
+  loadingSvc = inject(LoadingService);
 
   constructor(){
     this.loginForm = this.fb.group({
@@ -43,31 +41,21 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm.valid) {
-      this.loading = true;
-      this.errMsg = null;
-      
-      this.authservice.loginApi({
-        email: this.loginForm.value['email'], 
-        password: this.loginForm.value['password']
-      }).subscribe({
-        next: (res) => {
-          console.log("RESPONSE:\n\t", res);
-          localStorage.setItem("token", res.data.token);
-          this.router.navigate(["/dashboard"]);
-          this.authservice.isLoggedIn.update(() => true);
-        },
-        error: (err) => {
-          this.loading = false;
-          this.errMsg = err; 
-          console.error("ERROR:\n\t", err);
-        },
-        complete: () => {
-          this.loading = false;
-          this.errMsg = null;
-        }
-      });
+      try {
+        this.loadingSvc.loadingOn;
+        await this.authservice.loginApi({
+          email: this.loginForm.value['email'], 
+          password: this.loginForm.value['password']
+        });
+  
+        await this.router.navigate(["/dashboard"]);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.loadingSvc.loadingOff();
+      }
     }
   }
 }

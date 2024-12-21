@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
 
   public logout() {
     localStorage.removeItem('token');
-    this.authService.isLoggedIn.update(() => false);
+    // this.authService.isLoggedIn.update(() => false);
     this.router.navigate(["/auth"]);
   }
 }

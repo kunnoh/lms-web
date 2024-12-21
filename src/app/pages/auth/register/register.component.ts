@@ -19,8 +19,6 @@ import { AuthService } from '../../../services/auth.service';
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        MatProgressSpinnerModule,
-        // NgIf
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css'

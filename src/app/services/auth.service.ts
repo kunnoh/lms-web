@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { Observable, retry, catchError } from 'rxjs';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { Observable, retry, catchError, firstValueFrom } from 'rxjs';
 import handleError from '../helpers/error.handler';
 import { env } from '../../env/env';
+import { User } from '../models/user.model';
+
+const USER_STORAGE_KEY = 'user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +18,11 @@ export class AuthService {
     })
   };
 
+  #userSignal = signal<User | null>(null);
+  user = this.#userSignal.asReadonly();
+
   private http: HttpClient = inject(HttpClient);
-  public isLoggedIn = signal<boolean>(false);
+  public isLoggedIn = computed(() => !!this.user());
 
   private state = signal<AuthState>({
     isLogged: false,
@@ -26,17 +32,21 @@ export class AuthService {
   });
 
   constructor() {
-    if(this.getToken()){
-      this.isLoggedIn.update(() => true);
-    }
+    // if(this.getToken()){
+    //   this.isLoggedIn.update(() => true);
+    // }
   }
   
-  public loginApi(logindata: { email: string, password: string }): Observable<any> {
-    return this.http.post(env.API_URL + "/auth/login", logindata, this.httpOptions)
+  public async loginApi(logindata: { email: string, password: string }): Promise<User> {
+    const login$ = this.http.post<User>(env.API_URL + "/auth/login", logindata, this.httpOptions)
       .pipe(
         retry(1),
         catchError(handleError)
       );
+
+    const user = await firstValueFrom(login$);
+    this.#userSignal.set(user);
+    return user;
   }
 
   public registerApi(userdata: any): Observable<any> {
@@ -58,15 +68,5 @@ export interface AuthState {
   isLoading: boolean,
   error: null
 }
-function retryWhen(arg0: (errors: any) => any): import("rxjs").OperatorFunction<Object, any> {
-  throw new Error('Function not implemented.');
-}
 
-function delay(arg0: number): any {
-  throw new Error('Function not implemented.');
-}
-
-function take(arg0: number): any {
-  throw new Error('Function not implemented.');
-}
 
