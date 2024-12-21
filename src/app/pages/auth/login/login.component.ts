@@ -24,7 +24,7 @@ import { LoadingService } from '../../../services/loading.service/loading.servic
     styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  errMsg: string | null = null;
+  errMsg: any = null;
   hide: boolean = true;
   loading: boolean = false;
   loginForm: FormGroup;
@@ -51,8 +51,9 @@ export class LoginComponent {
         });
   
         await this.router.navigate(["/dashboard"]);
-      } catch (e) {
-        console.error(e);
+      } catch (e: any) {
+        console.log(e);
+        this.errMsg = e;
       } finally {
         // this.loadingSvc.loadingOff();
       }

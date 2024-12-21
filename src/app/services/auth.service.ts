@@ -24,13 +24,6 @@ export class AuthService {
   private http: HttpClient = inject(HttpClient);
   public isLoggedIn = computed(() => !!this.user());
 
-  private state = signal<AuthState>({
-    isLogged: false,
-    token: null,
-    isLoading: false,
-    error: null,
-  });
-
   constructor() {
     // if(this.getToken()){
     //   this.isLoggedIn.update(() => true);

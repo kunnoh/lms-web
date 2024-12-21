@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../../services/auth.service';
+import { NgIf } from '@angular/common';
 // import { NgIf } from '@angular/common';
 
 @Component({
@@ -19,7 +20,6 @@ import { AuthService } from '../../services/auth.service';
         MatSidenavModule,
         MatListModule,
         RouterOutlet,
-        // NgIf
     ],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css'
@@ -35,13 +35,15 @@ export class NavbarComponent implements OnInit {
   islogged = false;
 
   ngOnInit(): void {
+    console.log("AUTH: ",this.authService.isLoggedIn())
     effect(() => {
       this.islogged = this.authService.isLoggedIn();
     }, {injector: this.injector});
   }
 
   public logout() {
-    localStorage.removeItem('token');
+    console.log("logout")
+    // localStorage.removeItem('token');
     // this.authService.isLoggedIn.update(() => false);
     this.router.navigate(["/auth"]);
   }
