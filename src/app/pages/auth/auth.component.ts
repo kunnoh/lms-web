@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { RouterOutlet } from '@angular/router';
+// import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-auth',
@@ -12,7 +12,7 @@ import { RouterOutlet } from '@angular/router';
         MatTabsModule,
         LoginComponent,
         RegisterComponent,
-        RouterOutlet
+        // RouterOutlet
     ],
     encapsulation: ViewEncapsulation.None
 })

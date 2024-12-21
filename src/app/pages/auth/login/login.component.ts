@@ -7,7 +7,7 @@ import { MatCardModule} from '@angular/material/card';
 import { MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../../../services/auth.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+// import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
         MatButtonModule,
         MatIconModule,
         MatProgressSpinnerModule,
-        NgIf
+        // NgIf
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'

@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from '../../services/auth.service';
-import { NgIf } from '@angular/common';
+// import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-navbar',
@@ -19,7 +19,7 @@ import { NgIf } from '@angular/common';
         MatSidenavModule,
         MatListModule,
         RouterOutlet,
-        NgIf
+        // NgIf
     ],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css'

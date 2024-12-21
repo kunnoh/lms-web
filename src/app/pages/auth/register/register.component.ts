@@ -6,7 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
+// import { NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -20,7 +20,7 @@ import { AuthService } from '../../../services/auth.service';
         MatButtonModule,
         MatIconModule,
         MatProgressSpinnerModule,
-        NgIf
+        // NgIf
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css'

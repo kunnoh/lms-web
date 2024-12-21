@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, retry, catchError } from 'rxjs';
 import handleError from '../helpers/error.handler';
-import { prod } from '../../env/env';
+import { env } from '../../env/env';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class AuthService {
   }
   
   public loginApi(logindata: { email: string, password: string }): Observable<any> {
-    return this.http.post(prod.api + "/auth/login", logindata, this.httpOptions)
+    return this.http.post(env.API_URL + "/auth/login", logindata, this.httpOptions)
       .pipe(
         retry(1),
         catchError(handleError)
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   public registerApi(userdata: any): Observable<any> {
-    return this.http.post(prod.api + "/auth/register", userdata, this.httpOptions)
+    return this.http.post(env.API_URL + "/auth/register", userdata, this.httpOptions)
       .pipe(
         retry(1),
         catchError(handleError)
