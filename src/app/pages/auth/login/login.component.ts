@@ -54,7 +54,7 @@ export class LoginComponent {
       } catch (e) {
         console.error(e);
       } finally {
-        this.loadingSvc.loadingOff();
+        // this.loadingSvc.loadingOff();
       }
     }
   }
