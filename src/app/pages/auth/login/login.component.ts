@@ -55,7 +55,7 @@ export class LoginComponent {
         console.log(e);
         this.errMsg = e;
       } finally {
-        // this.loadingSvc.loadingOff();
+        this.loadingSvc.loadingOff();
       }
     }
   }
