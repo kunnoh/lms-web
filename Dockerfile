@@ -15,6 +15,9 @@ RUN npm run build --omit=dev && \
 # Stage 2: Serve with Nginx
 FROM nginx:alpine-slim AS release
 
+# create non-root user
+USER algoseek
+
 # Copy built files to Nginx HTML directory
 COPY --from=build /app/dist/lms-web/browser/* /usr/share/nginx/html/
 
@@ -22,3 +25,4 @@ COPY --from=build /app/dist/lms-web/browser/* /usr/share/nginx/html/
 COPY ./nginx/lms-web.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
